@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>740194302143-l2avp6fjkrff5gcgbdsiphctsp7e0h23.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.740194302143-l2avp6fjkrff5gcgbdsiphctsp7e0h23</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC0MU4JhlISRRUa59oEghqccjtUlc7xJTE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>740194302143</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ejcreates.seremeni</string>
+	<key>PROJECT_ID</key>
+	<string>seremeni-37c34</string>
+	<key>STORAGE_BUCKET</key>
+	<string>seremeni-37c34.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:740194302143:ios:bdcbfb82550615614b6e0a</string>
+</dict>
+</plist>

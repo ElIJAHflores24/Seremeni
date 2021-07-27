@@ -1,9 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:seremeni/services/auth.dart';
 import 'package:seremeni/signup.dart';
 import 'package:seremeni/welcome.dart';
 
-class LoginPage extends StatelessWidget {
+import 'models/user.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String password = "";
+  String email = "";
+  String passwordConfirmation = "";
+  final _formKey = GlobalKey<FormState>();
+  Auth auth = Auth();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,11 +71,79 @@ class LoginPage extends StatelessWidget {
                     ),
                     child: Column(
                       children: <Widget>[
-                        inputFile(label: "Email"),
-                        inputFile(
-                          label: "Password",
-                          obscureText: true,
-                        )
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "Email",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              TextFormField(
+                                onChanged: (value) {
+                                  setState(() => email = value.trim());
+                                },
+                                validator: (value) =>
+                                    value.isEmpty ? "Enter Email" : null,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 0,
+                                    horizontal: 10,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey[400],
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey[400],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "Password",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              TextFormField(
+                                onChanged: (value) {
+                                  setState(() => password = value.trim());
+                                },
+                                validator: (value) => value.length < 8
+                                    ? "Requires 8 Characters "
+                                    : null,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                    vertical: 0,
+                                    horizontal: 10,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey[400],
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey[400],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -84,16 +166,40 @@ class LoginPage extends StatelessWidget {
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
-                        onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Welcome(),),);
-                  },
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            print(email);
+                            print(password);
+                            User user = await auth.logInUser(
+                                email, password);
+                            if (user == null) {
+                              showCupertinoDialog(
+                                context: context,
+                                builder: (context) => CupertinoAlertDialog(
+                                  title: Text('invalid password or email'),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                      child: Text("go back"),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => Welcome()));
+                            }
+                          }
+                        },
                         color: Color(0xffFFE700),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
-                          "Log in",
+                          "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 18,
@@ -117,23 +223,25 @@ class LoginPage extends StatelessWidget {
                     // ],
                     children: <Widget>[
                       RichText(
-          text: TextSpan(
-            text: "Don't have an account?",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-            children: <TextSpan>[
-              TextSpan(
-                  text: ' Sign up',
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignupPage()));
-                    },
-                  style: TextStyle(
-                    color: Colors.blue,
-                  )),
-             
-            ],
-          ),
+                        text: TextSpan(
+                          text: "Don't have an account?",
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: ' Sign up',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignupPage()));
+                                  },
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                )),
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -162,7 +270,7 @@ Widget inputFile({label, obscureText = false}) {
       SizedBox(
         height: 5,
       ),
-      TextField(
+      TextFormField(
         obscureText: obscureText,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seremeni/LogIn.dart';
-import 'package:seremeni/signup.dart';
+import 'package:seremeni/Sign%20up/log%20in/signup.dart';
 
 void main() {
   runApp(MaterialApp(

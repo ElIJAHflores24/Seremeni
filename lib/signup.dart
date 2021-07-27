@@ -1,9 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:seremeni/LogIn.dart';
+
+import 'package:seremeni/services/auth.dart';
 import 'package:seremeni/welcome.dart';
 
-class SignupPage extends StatelessWidget {
+import '../../models/user.dart';
+
+
+class SignupPage extends StatefulWidget {
+  @override
+  _SignupPageState createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  String password = "";
+  String email = "";
+  String passwordConfirmation = "";
+  final _formKey = GlobalKey<FormState>();
+  Auth auth = Auth();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,19 +67,135 @@ class SignupPage extends StatelessWidget {
                   )
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  inputFile(label: "Username"),
-                  inputFile(label: "Email"),
-                  inputFile(
-                    label: "Password",
-                    obscureText: true,
-                  ),
-                  inputFile(
-                    label: "Confirm Password",
-                    obscureText: true,
-                  ),
-                ],
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Username",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    TextFormField(
+                     
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 10,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                    ),
+                    
+                    Text(
+                      "Email",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    TextFormField(
+                      onChanged: (value) {
+                        setState(() => email = value.trim());
+                      },
+                      validator: (value) => value.isEmpty ? "Enter Email": null,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 10,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Password",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    TextFormField(
+                      onChanged: (value) {
+                        setState(() => password = value.trim());
+                      },
+                      validator: (value) => value.length < 8 ? "Requires 8 Characters ": null,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 10,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Confirm Password",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    TextFormField(
+                      onChanged: (value) {
+                        setState(() => passwordConfirmation = value.trim());
+                      },
+                      validator: (value) => value != password ? "Passwords don't match": null,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 10,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(
@@ -82,8 +214,30 @@ class SignupPage extends StatelessWidget {
                 child: MaterialButton(
                   minWidth: double.infinity,
                   height: 60,
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Welcome(),),);
+                  onPressed: ()async {
+                    if (_formKey.currentState.validate()){
+                    User user = await auth.registerUser(email, password, passwordConfirmation);
+                    if (user == null){
+                      showCupertinoDialog(
+                        context: context, 
+                        builder: (context) => CupertinoAlertDialog(
+                          title: Text('invalid password or email'),
+                          actions: [
+                            CupertinoDialogAction(child: Text("go back"),
+                            onPressed: ()=> Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) => Welcome()));
+                            }
+                    }
+                    
+                   
                   },
                   color: Color(0xffFFE700),
                   elevation: 0,
