@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:seremeni/models/user.dart';
+
 
 class DataService {
   final String uid;

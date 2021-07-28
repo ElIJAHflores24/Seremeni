@@ -2,6 +2,8 @@ import 'package:seremeni/models/user.dart';
 import 'package:seremeni/services/data_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
+
 class Auth {
   FirebaseAuth _auth = FirebaseAuth.instance;
 

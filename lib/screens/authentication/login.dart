@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:seremeni/services/auth.dart';
-import 'package:seremeni/signup.dart';
-import 'package:seremeni/welcome.dart';
+import 'package:seremeni/models/user.dart';
 
-import 'models/user.dart';
+
+import 'package:seremeni/screens/authentication/signup.dart';
+
+import 'package:seremeni/screens/welcome.dart';
+import 'package:seremeni/services/auth.dart';
+
+
+
+
+
+
 
 class LoginPage extends StatefulWidget {
   @override

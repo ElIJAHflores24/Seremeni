@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:seremeni/screens/quiz_page.dart';
+import 'package:seremeni/services/phrases.dart';
+//AnimalQuiz anqz = new AnimalQuiz();
 
 class Welcome extends StatelessWidget {
   @override
@@ -51,23 +54,25 @@ class Welcome extends StatelessWidget {
               text: 'Introduction',
               icons: Icons.play_circle_outline,
               img: AssetImage('images/fitjag.png'),
+              destination: Quizzler(animalQuiz),
             ),
             DataPanel(
               text: 'Travel',
               icons: Icons.lock_outline_sharp,
               img: AssetImage('images/plane.png'),
+              destination: Quizzler(travelQuiz),
             ),
             DataPanel(
               text: 'Yes',
               icons: Icons.lock_outline_sharp,
               img: AssetImage('images/Dance.png'),
-              destination: Welcome(),
+              destination: Quizzler(travelQuiz),
             ),
             DataPanel(
               text:'Ma',
               icons: Icons.lock_outline_sharp,
               img: AssetImage('images/beach.png'),
-              destination: Welcome(),
+              destination: Quizzler(animalQuiz),
             )
           ],
         ),
