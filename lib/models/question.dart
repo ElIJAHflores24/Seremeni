@@ -1,6 +1,9 @@
+import 'package:seremeni/models/answer.dart';
+
 class Question {
   String questionText = '';
-  bool questionAnswer = false;
-  Question(this.questionText, this.questionAnswer);
+  String correctAnswer;
+  List<String> answers =[''];
+
+  Question(this.questionText, this.answers, this.correctAnswer);
 }
-Question newQuestion = Question('text', true);

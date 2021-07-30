@@ -16,8 +16,8 @@ class Welcome extends StatelessWidget {
           'Overview',
           style: TextStyle(
               color: Colors.black,
-              //fontFamily: 'Poppins',
-              fontSize: 25),
+              fontFamily: 'Poppins',
+              fontSize: 40),
         ),
         actions: <Widget>[
           Padding(
@@ -27,6 +27,7 @@ class Welcome extends StatelessWidget {
                 'images/Flag.png',
               ),
             ),
+           
           ),
         ],
       ),
@@ -37,12 +38,17 @@ class Welcome extends StatelessWidget {
           children: [
             Row(
               children: <Widget>[
-                SizedBox(height: 100,),
-                Text(
-                  'Topics',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                SizedBox(height: 100, ),
+                
+                Padding(
+                  padding: const EdgeInsets.only(left: 60.0),
+                  child: Text(
+                    'Topics',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      fontSize: 25,
+                    ),
                   ),
                 ),
                 //SizedBox(height: 10,)
@@ -98,7 +104,7 @@ class DataPanel extends StatelessWidget {
       height: 150,
       width: 300,
       decoration: BoxDecoration(
-       
+      
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(image: img),
         
@@ -114,8 +120,9 @@ class DataPanel extends StatelessWidget {
               text,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
               ),
             ),
             Icon(

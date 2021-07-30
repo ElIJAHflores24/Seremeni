@@ -1,3 +1,4 @@
+import 'package:seremeni/models/answer.dart';
 import 'package:seremeni/models/question.dart';
 
 class Quiz{
@@ -18,8 +19,14 @@ Quiz({
     return questionBankk[questionNumberr].questionText;
   }
 
-  bool getCorrectAnswer() {
-    return questionBankk[questionNumberr].questionAnswer;
+  List<String> getAnswers() {
+    return questionBankk[questionNumberr].answers;
+  }
+
+
+
+  String getCorrectAnswer() {
+    return questionBankk[questionNumberr].correctAnswer;
   }
 
   bool isFinished() {

@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                                 validator: (value) => value.length < 8
                                     ? "Requires 8 Characters "
                                     : null,
-                                obscureText: false,
+                                obscureText: true,
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                     vertical: 0,

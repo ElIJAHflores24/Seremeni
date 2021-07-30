@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:seremeni/models/answer.dart';
 import 'package:seremeni/models/quiz.dart';
 import 'package:seremeni/screens/welcome.dart';
 import 'package:seremeni/services/phrases.dart';
@@ -13,7 +14,7 @@ class Quizzler extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -35,12 +36,13 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
+//var answers = widget.inputQuiz.getAnswers();
 
   void checkAnswer(
     bool userPickedAnswer,
     Quiz qz,
   ) {
-    bool correctAnswer = qz.getCorrectAnswer();
+    String correctAnswer = qz.getCorrectAnswer();
     setState(() {
       if (qz.isFinished() == true) {
         showCupertinoDialog(
@@ -49,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
             title: Text('Congratulations you finished'),
             actions: [
               CupertinoDialogAction(
-                child: Text("go back"),
+                child: Text("Go back"),
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Welcome()),
@@ -93,7 +95,7 @@ class _QuizPageState extends State<QuizPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
-                  color: Colors.white,
+                  color: Colors.yellow,
                 ),
               ),
             ),
@@ -104,11 +106,13 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(15.0),
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.black,
               ),
               child: Text(
-                'True',
+                'h',
+                
                 style: TextStyle(
+                  fontFamily: 'poppins',
                   color: Colors.white,
                   fontSize: 20.0,
                 ),
@@ -116,6 +120,9 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked true.
                 checkAnswer(true, widget.inputQuiz);
+                setState(() {
+                  
+                });
               },
             ),
           ),
@@ -125,14 +132,31 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(15.0),
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.black,
               ),
               child: Text(
                 'False',
                 style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                ),
+                    fontSize: 20.0, color: Colors.white, fontFamily: 'poppins'),
+              ),
+              onPressed: () {
+                //The user picked false.
+                checkAnswer(false, widget.inputQuiz);
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.black,
+              ),
+              child: Text(
+                'False',
+                style: TextStyle(
+                    fontSize: 20.0, color: Colors.white, fontFamily: 'poppins'),
               ),
               onPressed: () {
                 //The user picked false.
@@ -144,6 +168,51 @@ class _QuizPageState extends State<QuizPage> {
         Row(
           children: scoreKeeper,
         )
+      ],
+    );
+  }
+}
+
+class QuizPageListView extends StatelessWidget {
+  Quiz q;
+  QuizPageListView({this.q});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //Text('${q.questionBankk[index]}')
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: q.questionBankk.length,
+
+          itemBuilder: (context, index){
+            return Column(
+              children: [
+                Text('${q.questionBankk[index]}',style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.yellow,
+                ),),
+                TextButton(
+                  
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
+                  child: Text(
+                    q.questionBankk[index].answers[index],
+                    style: TextStyle(
+                        fontSize: 20.0, color: Colors.white, fontFamily: 'poppins'),
+                  ),
+                  onPressed: () {
+                    //The user picked false.
+                   // checkAnswer(false, widget.inputQuiz);
+                  },
+                ),
+              ],
+            );
+          })
+
       ],
     );
   }

@@ -135,11 +135,12 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     Text(
-                      "Password",
+                      "Password", 
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Colors.black87,
+                        
                       ),
                     ),
                     TextFormField(
@@ -147,11 +148,12 @@ class _SignupPageState extends State<SignupPage> {
                         setState(() => password = value.trim());
                       },
                       validator: (value) => value.length < 8 ? "Requires 8 Characters ": null,
-                      obscureText: false,
+                      obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 0,
                           horizontal: 10,
+                          
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -261,11 +263,11 @@ class _SignupPageState extends State<SignupPage> {
                 children: <Widget>[
                   RichText(
                     text: TextSpan(
-                      text: "Don't have an account?",
+                      text: "Already have an account?",
                       style: TextStyle(fontSize: 15, color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
-                          text: ' Sign up ',
+                          text: ' Log in ',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Navigator.push(
