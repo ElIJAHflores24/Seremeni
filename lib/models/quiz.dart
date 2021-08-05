@@ -19,18 +19,23 @@ Quiz({
     return questionBankk[questionNumberr].questionText;
   }
 
-  List<String> getAnswers() {
-    return questionBankk[questionNumberr].answers;
+  String getAnswers(int count) {
+    return questionBankk[questionNumberr].answers[count];
+  }
+  String getImage(){
+    return questionBankk[questionNumberr].image;
   }
 
-
+  String getQuizName(){
+    return questionBankk[questionNumberr].quizName;
+  }
 
   String getCorrectAnswer() {
     return questionBankk[questionNumberr].correctAnswer;
   }
 
   bool isFinished() {
-    if (questionNumberr >= questionBankk.length - 1) {
+    if (questionNumberr >= questionBankk.length -1) {
       print('Now returning true');
       return true;
     } else {

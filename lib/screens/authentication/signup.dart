@@ -74,34 +74,8 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Username",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    TextFormField(
-                     
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 0,
-                          horizontal: 10,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey[400],
-                          ),
-                        ),
-                      ),
-                    ),
+                    
+                    
                     
                     Text(
                       "Email",
@@ -169,7 +143,9 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     Text(
                       "Confirm Password",
+                      
                       style: TextStyle(
+                        
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Colors.black87,
@@ -180,7 +156,7 @@ class _SignupPageState extends State<SignupPage> {
                         setState(() => passwordConfirmation = value.trim());
                       },
                       validator: (value) => value != password ? "Passwords don't match": null,
-                      obscureText: false,
+                      obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 0,
