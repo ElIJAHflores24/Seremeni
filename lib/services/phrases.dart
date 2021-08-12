@@ -22,16 +22,16 @@ questionBankk: <Question> [
 Quiz introQuiz = Quiz(
 questionNumberr: 0,
 questionBankk: <Question> [
-    Question('Introduction' ,'Seremien', ['Dive', 'Shower', 'Word'], 'Dive', 'images/shower_quiz.jpg'),
-    Question('Introduction' ,'Busuaguati (Bu-sua-gua-ti)', ['Hi', 'ya\'ll','EJ'], 'Hi','images/cow.jpeg'),
-    Question('Introduction' ,'Buiti Binafin (Bui-ti Bi-na-fin)', ['Good Morning', 'indeed','EJ'], 'Good Morning','images/cow.jpeg'),
-    Question('Introduction' ,'Buiti Guñoun (Bui-ti- Gu-ñoun)', ['word', 'indeed','Good Night'], 'Good Night','images/cow.jpeg'),
-    Question('Introduction' ,'Buiti Rabounweyu (Bui-ti- Ra-boun-we-yu', ['word', 'Good Afternoon','EJ'], 'Good Afternoon','images/cow.jpeg'),
-    Question('Introduction' ,'Four key trey ', ['word', 'indeed','EJ'], 'word','images/cow.jpeg'),
-    Question('Introduction' ,'Four key trey ', ['word', 'indeed','EJ'], 'word','images/cow.jpeg'),
-    Question('Introduction' ,'Four key trey a sacred place.',['word', 'indeed','EJ'], 'word','images/cow.jpeg' ),
-    Question('Introduction' ,'Four key trey ', ['word', 'indeed','EJ'], 'word','images/cow.jpeg'),
-    Question('Introduction' ,'Four key trey ', ['word', 'indeed','EJ'], 'word','images/cow.jpeg'),
+    Question('Introduction' ,'Seremien', ['Thank you', 'No thank you', 'Grateful'], 'Thank you', 'images/thankyou.jpeg'),
+    Question('Introduction' ,'Busuaguati (Bu-sua-gua-ti)', ['Hi', 'See you later','I miss you'], 'Hi','images/waving_bye.jpg'),
+    Question('Introduction' ,'Buiti Binafin (Bui-ti Bi-na-fin)', ['Good Morning', 'Good Night','Hi'], 'Good Morning','images/morning.jpeg'),
+    Question('Introduction' ,'Buiti Guñoun (Bui-ti- Gu-ñoun)', ['Bye', 'Good Morning','Good Night'], 'Good Night','images/goodnight.jpeg'),
+    Question('Introduction' ,'Buiti Rabounweyu (Bui-ti- Ra-boun-we-yu', ['Welcome', 'Good Afternoon','Hello'], 'Good Afternoon','images/afternoon.jpeg'),
+    Question('Introduction' ,'úmadaü ()', ['Freind', 'Enemy','Brother'], 'Freind','images/friends.png'),
+    Question('Introduction' ,'Atuha (A-tu-ha)', ['Room', 'House','Restroom'], 'Room','images/room_Belize.jpeg'),
+    Question('Introduction' ,'Kumú (Ku-mú)',['Living Room', 'Restroom','Kitchen'], 'Restroom','images/restroom.jpeg' ),
+    Question('Introduction' ,'Ágeidinaü (Á-gei-di-naü)', ['Untensil', 'Tools','Spatuala'], 'Untensil','images/untensils.jpeg'),
+    Question('Introduction' ,' Éigini (Éi-gi-ni)', ['Desert', 'Toys','Food'], 'Food','images/food.jpeg'),
     
   ]
 );

@@ -13,8 +13,9 @@ class _LogOutState extends State<LogOut> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       child: MaterialButton(
-                    height: 40,
+                    height: 10,
                     onPressed: () async {
                       await _auth.signOut();
                       Navigator.push(
@@ -23,7 +24,7 @@ class _LogOutState extends State<LogOut> {
                               builder: (BuildContext context) =>
                                   HomePage()));
                     },
-                    color: Color(0xff0095ff),
+                    color: Colors.yellow,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
@@ -37,7 +38,7 @@ class _LogOutState extends State<LogOut> {
                       ),
                     ),
                   ),
-
+      
     );
   }
 }

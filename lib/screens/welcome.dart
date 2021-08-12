@@ -7,11 +7,17 @@ import 'package:seremeni/services/phrases.dart';
 
 //AnimalQuiz anqz = new AnimalQuiz();
 class Welcome extends StatefulWidget {
+  bool value = false;
+
+ Welcome({this.value});
+  
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
+  
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +83,7 @@ class _WelcomeState extends State<Welcome> {
             ),
             DataPanel(
               text: 'Animals',
-              icons: Icons.lock,
+              icons: widget.value ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/1.png'),
               destination: Quizzler(animalQuiz),
             ),
@@ -128,6 +134,7 @@ class DataPanel extends StatelessWidget {
         onTap: () {
           Navigator.push(context,
               new MaterialPageRoute(builder: (context) => destination));
+              print(destination.key);
         },
         child: Column(
           children: <Widget>[

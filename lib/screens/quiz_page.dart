@@ -36,8 +36,15 @@ class Quizzler extends StatelessWidget {
               icon: Icon(Icons.arrow_back_ios),
               color: Colors.yellow,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Welcome()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Welcome(
+                      value: false,
+                    ),
+                  ),
+                );
+                Quiz().reset();
               },
             );
           },
@@ -62,11 +69,22 @@ class _QuizPageState extends State<QuizPage> {
   int listCount = 0;
 //var answers = widget.inputQuiz.getAnswers();
   int count = 0;
-  void quizPassed(){
-    
+
+  void quizPassed(userPickedAnswer, Quiz qz) {
+    String correctAnswer = widget.inputQuiz.getCorrectAnswer();
+    setState(() {
+      if (userPickedAnswer == correctAnswer) {
+        listCount += 1;
+        quizStatus.add(true);
+      } else {
+        quizStatus.add(false);
+      }
+      if (listCount == 10) {
+        passed = true;
+      }
+    });
   }
 
-  
   void checkAnswer(
     String userPickedAnswer,
     Quiz qz,
@@ -87,7 +105,9 @@ class _QuizPageState extends State<QuizPage> {
                 child: Text("Go back"),
                 onPressed: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Welcome()),
+                  MaterialPageRoute(
+                    builder: (context) => Welcome(value: passed),
+                  ),
                 ),
               ),
             ],
@@ -101,23 +121,17 @@ class _QuizPageState extends State<QuizPage> {
             Icons.check,
             color: Colors.green,
           ));
-          quizStatus.add(true);
-          listCount += 1;
         } else {
           scoreKeeper.add(Icon(
             Icons.close,
             color: Colors.red,
           ));
-          quizStatus.add(false);
         }
-        
-        if (listCount == 10){
-            passed = true;
-        }
+
         qz.nextQuestion();
         print('userpicked: $userPickedAnswer');
         print('correctAnswer: ${correctAnswer}');
-        print (listCount);
+        print(listCount);
       }
     });
   }
@@ -171,9 +185,10 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                quizPassed(
+                    widget.inputQuiz.getAnswers(count), widget.inputQuiz);
                 checkAnswer(
                     widget.inputQuiz.getAnswers(count), widget.inputQuiz);
-
                 setState(() {});
                 print(quizStatus);
               },
@@ -195,6 +210,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                quizPassed(
+                    widget.inputQuiz.getAnswers(count + 1), widget.inputQuiz);
                 checkAnswer(
                     widget.inputQuiz.getAnswers(count + 1), widget.inputQuiz);
               },
@@ -215,6 +232,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                quizPassed(
+                    widget.inputQuiz.getAnswers(count + 2), widget.inputQuiz);
                 checkAnswer(
                     widget.inputQuiz.getAnswers(count + 2), widget.inputQuiz);
               },

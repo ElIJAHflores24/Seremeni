@@ -197,7 +197,9 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                   context,
                                   new MaterialPageRoute(
-                                      builder: (context) => Welcome()));
+                                      builder: (context) => Welcome(
+                                        value: false,
+                                      )));
                             }
                           }
                         },
