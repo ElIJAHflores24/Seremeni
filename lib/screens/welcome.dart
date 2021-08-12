@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seremeni/models/quiz.dart';
 import 'package:seremeni/models/user.dart';
 import 'package:seremeni/screens/logOut.dart';
 import 'package:seremeni/screens/quiz_page.dart';
@@ -79,25 +82,25 @@ class _WelcomeState extends State<Welcome> {
               text: 'Introduction',
               icons: Icons.play_circle_outline,
               img: AssetImage('images/4.png'),
-              destination: Quizzler(introQuiz),
+              destination: Quizzler(introQuiz, 'introduction'),
             ),
             DataPanel(
               text: 'Animals',
               icons: widget.value ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/1.png'),
-              destination: Quizzler(animalQuiz),
+              destination: Quizzler(animalQuiz, 'animal'),
             ),
             DataPanel(
               text: 'Travel',
               icons: Icons.lock,
               img: AssetImage('images/2.png'),
-              destination: Quizzler(travelQuiz),
+              destination: Quizzler(travelQuiz, 'travel'),
             ),
             DataPanel(
               text: 'Things at the Beach',
               icons: Icons.lock,
               img: AssetImage('images/3.png'),
-              destination: Quizzler(animalQuiz),
+              destination: Quizzler(animalQuiz, 'beach'),
             )
           ],
         ),
@@ -134,7 +137,7 @@ class DataPanel extends StatelessWidget {
         onTap: () {
           Navigator.push(context,
               new MaterialPageRoute(builder: (context) => destination));
-              print(destination.key);
+              print(destination);
         },
         child: Column(
           children: <Widget>[

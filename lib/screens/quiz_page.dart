@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:seremeni/models/quiz.dart';
 import 'package:seremeni/screens/welcome.dart';
+import 'package:seremeni/services/auth.dart';
+import 'package:seremeni/services/data_service.dart';
 
 class Quizzler extends StatelessWidget {
   final Quiz inputQuizzler;
+  final String quizName;
 
-  Quizzler(this.inputQuizzler);
+  Quizzler(this.inputQuizzler, this.quizName);
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +19,10 @@ class Quizzler extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: QuizPage(inputQuiz: inputQuizzler),
+          child: QuizPage(
+            inputQuiz: inputQuizzler,
+            quizName: quizName,
+          ),
         ),
       ),
       appBar: AppBar(
@@ -44,7 +50,7 @@ class Quizzler extends StatelessWidget {
                     ),
                   ),
                 );
-                Quiz().reset();
+                //QuizPage.input.
               },
             );
           },
@@ -56,8 +62,8 @@ class Quizzler extends StatelessWidget {
 
 class QuizPage extends StatefulWidget {
   Quiz inputQuiz;
-
-  QuizPage({this.inputQuiz});
+  final String quizName;
+  QuizPage({this.inputQuiz, this.quizName});
 
   _QuizPageState createState() => _QuizPageState();
 }
@@ -66,23 +72,35 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   List<bool> quizStatus = [];
   bool passed = false;
+  bool introduction, animal, travel, beach = false;
   int listCount = 0;
 //var answers = widget.inputQuiz.getAnswers();
   int count = 0;
 
   void quizPassed(userPickedAnswer, Quiz qz) {
     String correctAnswer = widget.inputQuiz.getCorrectAnswer();
-    setState(() {
-      if (userPickedAnswer == correctAnswer) {
-        listCount += 1;
-        quizStatus.add(true);
-      } else {
-        quizStatus.add(false);
-      }
-      if (listCount == 10) {
-        passed = true;
-      }
-    });
+    setState(
+      () {
+        if (userPickedAnswer == correctAnswer) {
+          listCount += 1;
+          quizStatus.add(true);
+        } else {
+          quizStatus.add(false);
+        }
+        if (listCount == 10) {
+          passed = true;
+          if (widget.quizName == 'introduction') {
+            introduction = true;
+          } else if (widget.quizName == 'animal') {
+            animal = true;
+          } else if (widget.quizName == 'travel') {
+            travel = true;
+          } else if (widget.quizName == 'beach') {
+            beach = true;
+          }
+        }
+      },
+    );
   }
 
   void checkAnswer(
@@ -103,16 +121,30 @@ class _QuizPageState extends State<QuizPage> {
             actions: [
               CupertinoDialogAction(
                 child: Text("Go back"),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Welcome(value: passed),
-                  ),
-                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Welcome(value: passed),
+                    ),
+                  );
+                  String currentUser = Auth().getCurrentUser().then((value) {
+                    setState(() {
+                      value.toString();
+                    });
+                  }) as String;
+                  DataService().saveQuiz(
+                      introduction: introduction,
+                      animals: animal,
+                      travel: travel,
+                      beach: beach,
+                      user: currentUser);
+                },
               ),
             ],
           ),
         );
+
         qz.reset();
         scoreKeeper = [];
       } else {

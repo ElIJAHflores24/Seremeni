@@ -40,4 +40,13 @@ class Auth {
 User userFromFirebase(FirebaseUser user) {
     return user != null ? User(email: user.email, uid: user.uid) : null;
   }
+
+  Future<String> getCurrentUser() async{
+  final FirebaseUser user = await _auth.currentUser();
+
+  final uid = user.uid.toString();
+  return uid;
 }
+}
+
+
