@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:seremeni/models/quiz.dart';
 import 'package:seremeni/models/user.dart';
 import 'package:seremeni/screens/logOut.dart';
@@ -11,8 +12,13 @@ import 'package:seremeni/services/phrases.dart';
 //AnimalQuiz anqz = new AnimalQuiz();
 class Welcome extends StatefulWidget {
   bool value = false;
+  bool animal = false;
+  bool beach = false;
+  bool introduction = false;
+  bool travel = false;
 
- Welcome({this.value});
+
+ Welcome({this.animal, this.beach, this.introduction, this.travel});
   
   @override
   _WelcomeState createState() => _WelcomeState();
@@ -42,7 +48,12 @@ class _WelcomeState extends State<Welcome> {
             child: MaterialButton(
               onPressed: () {
                 Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => LogOut()));
+                    new MaterialPageRoute(builder: (context) => LogOut(
+                      animal: animal,
+                      introduction: introduction,
+                      beach: beach,
+                      travel: travel,
+                    )));
               },
               child: Image(
                 image: AssetImage(
@@ -86,21 +97,21 @@ class _WelcomeState extends State<Welcome> {
             ),
             DataPanel(
               text: 'Animals',
-              icons: widget.value ? Icons.play_circle_outline : Icons.lock,
+              icons: widget.introduction ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/1.png'),
-              destination: Quizzler(animalQuiz, 'animal'),
+              destination: widget.introduction ? Quizzler(animalQuiz, 'animal') : Text('Quiz Locked'),
             ),
             DataPanel(
               text: 'Travel',
-              icons: Icons.lock,
+              icons: widget.animal ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/2.png'),
-              destination: Quizzler(travelQuiz, 'travel'),
+              destination: widget.animal ? Quizzler(travelQuiz, 'travel') : Text('Quiz Locked'),
             ),
             DataPanel(
               text: 'Things at the Beach',
-              icons: Icons.lock,
+              icons: widget.travel ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/3.png'),
-              destination: Quizzler(animalQuiz, 'beach'),
+              destination: widget.travel ? Quizzler(animalQuiz, 'beach') : Text('Quiz Locked'),
             )
           ],
         ),

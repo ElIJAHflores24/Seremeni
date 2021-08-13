@@ -3,17 +3,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:seremeni/models/user.dart';
 
-
 import 'package:seremeni/screens/authentication/signup.dart';
 
 import 'package:seremeni/screens/welcome.dart';
 import 'package:seremeni/services/auth.dart';
-
-
-
-
-
-
+import 'package:seremeni/services/data_service.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,6 +20,10 @@ class _LoginPageState extends State<LoginPage> {
   String passwordConfirmation = "";
   final _formKey = GlobalKey<FormState>();
   Auth auth = Auth();
+  bool introduction = false;
+  bool animal = false;
+  bool travel = false;
+  bool beach = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,8 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                           if (_formKey.currentState.validate()) {
                             print(email);
                             print(password);
-                            User user = await auth.logInUser(
-                                email, password);
+                            User user = await auth.logInUser(email, password);
                             if (user == null) {
                               showCupertinoDialog(
                                 context: context,
@@ -194,12 +191,24 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               );
                             } else {
+                              String name = await Auth().getCurrentUser();
+                              List status =
+                                  await DataService().quizStatus(user: name);
+                              setState(() {
+                                animal = status[0];
+                                beach = status[1];
+                                introduction = status[2];
+                                travel = status[3];
+                              });
                               Navigator.push(
                                   context,
                                   new MaterialPageRoute(
                                       builder: (context) => Welcome(
-                                        value: false,
-                                      )));
+                                            animal: animal,
+                                            beach: beach,
+                                            introduction: introduction,
+                                            travel: travel,
+                                          )));
                             }
                           }
                         },

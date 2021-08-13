@@ -6,12 +6,22 @@ import 'package:seremeni/screens/welcome.dart';
 import 'package:seremeni/services/auth.dart';
 import 'package:seremeni/services/data_service.dart';
 
-class Quizzler extends StatelessWidget {
+bool introduction = false;
+bool animal = false;
+bool travel = false;
+bool beach = false;
+
+class Quizzler extends StatefulWidget {
   final Quiz inputQuizzler;
   final String quizName;
 
   Quizzler(this.inputQuizzler, this.quizName);
 
+  @override
+  _QuizzlerState createState() => _QuizzlerState();
+}
+
+class _QuizzlerState extends State<Quizzler> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
@@ -20,8 +30,8 @@ class Quizzler extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: QuizPage(
-            inputQuiz: inputQuizzler,
-            quizName: quizName,
+            inputQuiz: widget.inputQuizzler,
+            quizName: widget.quizName,
           ),
         ),
       ),
@@ -41,12 +51,25 @@ class Quizzler extends StatelessWidget {
             return IconButton(
               icon: Icon(Icons.arrow_back_ios),
               color: Colors.yellow,
-              onPressed: () {
+              onPressed: () async {
+                String name = await Auth().getCurrentUser();
+                List status =
+                  await DataService().quizStatus(user: name);
+                print("status in quiz_page $status");
+                setState(() {
+                  animal = status[1];
+                  beach = status[0];
+                  introduction = status[2];
+                  travel = status[3];
+                });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Welcome(
-                      value: false,
+                      animal: animal,
+                      beach: beach,
+                      introduction: introduction,
+                      travel: travel,
                     ),
                   ),
                 );
@@ -72,8 +95,9 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   List<bool> quizStatus = [];
   bool passed = false;
-  bool introduction, animal, travel, beach = false;
+
   int listCount = 0;
+
 //var answers = widget.inputQuiz.getAnswers();
   int count = 0;
 
@@ -121,24 +145,38 @@ class _QuizPageState extends State<QuizPage> {
             actions: [
               CupertinoDialogAction(
                 child: Text("Go back"),
-                onPressed: () {
+                onPressed: () async {
+                  String name = await Auth().getCurrentUser();
+                  await DataService().saveQuiz(
+                    introduction: introduction,
+                    animals: animal,
+                    travel: travel,
+                    beach: beach,
+                    user: name,
+                  );
+
+                  List status = await DataService()
+                      .quizStatus(user: name);
+                  
+                  print(status);
+                  print("trying to see if status is second one empty");
+                  setState(() {
+                    animal = status[1];
+                    beach = status[0];
+                    introduction = status[2];
+                    travel = status[3];
+                  });
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Welcome(value: passed),
+                      builder: (context) => Welcome(
+                        animal: animal,
+                        beach: beach,
+                        introduction: introduction,
+                        travel: travel,
+                      ),
                     ),
                   );
-                  String currentUser = Auth().getCurrentUser().then((value) {
-                    setState(() {
-                      value.toString();
-                    });
-                  }) as String;
-                  DataService().saveQuiz(
-                      introduction: introduction,
-                      animals: animal,
-                      travel: travel,
-                      beach: beach,
-                      user: currentUser);
                 },
               ),
             ],
@@ -190,7 +228,7 @@ class _QuizPageState extends State<QuizPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 25.0,
-                        color: Colors.yellow,
+                        color: Colors.black,
                       ),
                     ),
                   ],
