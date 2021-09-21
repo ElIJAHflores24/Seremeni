@@ -11,22 +11,19 @@ import 'package:seremeni/services/phrases.dart';
 
 //AnimalQuiz anqz = new AnimalQuiz();
 class Welcome extends StatefulWidget {
-  bool value = false;
-  bool animal = false;
-  bool beach = false;
-  bool introduction = false;
-  bool travel = false;
+   bool value = false;
+   bool animal = false;
+   bool beach = false;
+   bool introduction = false;
+   bool travel = false;
 
+  Welcome({this.animal, this.beach, this.introduction, this.travel});
 
- Welcome({this.animal, this.beach, this.introduction, this.travel});
-  
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
-  
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +44,17 @@ class _WelcomeState extends State<Welcome> {
             padding: const EdgeInsets.all(8.0),
             child: MaterialButton(
               onPressed: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => LogOut(
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (context) => LogOut(
                       animal: animal,
                       introduction: introduction,
                       beach: beach,
                       travel: travel,
-                    )));
+                    ),
+                  ),
+                );
               },
               child: Image(
                 image: AssetImage(
@@ -69,24 +70,38 @@ class _WelcomeState extends State<Welcome> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              children: <Widget>[
-                SizedBox(
-                  height: 100,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: Text(
-                    'Topics',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                      fontSize: 25,
-                    ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 30),
+                Text(
+                  'Hello' ,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                    fontSize: 25,
                   ),
                 ),
-                //SizedBox(height: 10,)
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 60.0),
+                      child: Text(
+                        'Topics',
+                        style: TextStyle(
+                          //fontWeight: FontWeight.bold,
+                          //fontFamily: 'Poppins',
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
+                    //SizedBox(height: 10,)
+                  ],
+                ),
               ],
             ),
             DataPanel(
@@ -97,21 +112,28 @@ class _WelcomeState extends State<Welcome> {
             ),
             DataPanel(
               text: 'Animals',
-              icons: widget.introduction ? Icons.play_circle_outline : Icons.lock,
+              icons:
+                  widget.introduction ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/1.png'),
-              destination: widget.introduction ? Quizzler(animalQuiz, 'animal') : Text('Quiz Locked'),
+              destination: widget.introduction
+                  ? Quizzler(animalQuiz, 'animal')
+                  : Text('Quiz Locked'),
             ),
             DataPanel(
               text: 'Travel',
               icons: widget.animal ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/2.png'),
-              destination: widget.animal ? Quizzler(travelQuiz, 'travel') : Text('Quiz Locked'),
+              destination: widget.animal
+                  ? Quizzler(travelQuiz, 'travel')
+                  : Text('Quiz Locked'),
             ),
             DataPanel(
               text: 'Things at the Beach',
               icons: widget.travel ? Icons.play_circle_outline : Icons.lock,
               img: AssetImage('images/3.png'),
-              destination: widget.travel ? Quizzler(animalQuiz, 'beach') : Text('Quiz Locked'),
+              destination: widget.travel
+                  ? Quizzler(animalQuiz, 'beach')
+                  : Text('Quiz Locked'),
             )
           ],
         ),
@@ -148,7 +170,7 @@ class DataPanel extends StatelessWidget {
         onTap: () {
           Navigator.push(context,
               new MaterialPageRoute(builder: (context) => destination));
-              print(destination);
+          print(destination);
         },
         child: Column(
           children: <Widget>[

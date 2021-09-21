@@ -12,6 +12,7 @@ class Auth {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       DataService (uid: user.uid).saveUser(user);
+      DataService (uid: user.uid).saveQuiz();
       return userFromFirebase(user);
     }
   }

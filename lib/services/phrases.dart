@@ -27,7 +27,7 @@ questionBankk: <Question> [
     Question('Introduction' ,'Buiti Binafin (Bui-ti Bi-na-fin)', ['Good Morning', 'Good Night','Hi'], 'Good Morning','images/morning.jpeg'),
     Question('Introduction' ,'Buiti Guñoun (Bui-ti- Gu-ñoun)', ['Bye', 'Good Morning','Good Night'], 'Good Night','images/goodnight.jpeg'),
     Question('Introduction' ,'Buiti Rabounweyu (Bui-ti- Ra-boun-we-yu', ['Welcome', 'Good Afternoon','Hello'], 'Good Afternoon','images/afternoon.jpeg'),
-    Question('Introduction' ,'úmadaü ()', ['Freind', 'Enemy','Brother'], 'Freind','images/friends.png'),
+    Question('Introduction' ,'úmadaü (ú-ma-dü)', ['Freind', 'Enemy','Brother'], 'Freind','images/friends.png'),
     Question('Introduction' ,'Atuha (A-tu-ha)', ['Room', 'House','Restroom'], 'Room','images/room_Belize.jpeg'),
     Question('Introduction' ,'Kumú (Ku-mú)',['Living Room', 'Restroom','Kitchen'], 'Restroom','images/restroom.jpeg' ),
     Question('Introduction' ,'Ágeidinaü (Á-gei-di-naü)', ['Untensil', 'Tools','Spatuala'], 'Untensil','images/untensils.jpeg'),

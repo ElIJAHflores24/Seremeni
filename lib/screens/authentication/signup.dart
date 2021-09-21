@@ -20,8 +20,14 @@ class _SignupPageState extends State<SignupPage> {
   String password = "";
   String email = "";
   String passwordConfirmation = "";
+   bool value = false;
+   bool animal = false;
+   bool beach = false;
+   bool introduction = false;
+   bool travel = false;
   final _formKey = GlobalKey<FormState>();
   Auth auth = Auth();
+  Welcome wel = Welcome();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -210,10 +216,10 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       );
                     } else {
-                              Navigator.push(
+                              Navigator.push( 
                                   context,
                                   new MaterialPageRoute(
-                                      builder: (context) => Welcome()));
+                                      builder: (context) => Welcome(animal: animal,beach: beach,introduction: introduction,travel:travel)));
                             }
                     }
                     

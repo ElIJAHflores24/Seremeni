@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:seremeni/models/user.dart';
@@ -18,7 +17,7 @@ class DataService {
     });
   }
 
-  Future<void> saveQuiz({introduction, animals, travel, beach, user}) async {
+Future<void> saveQuiz({introduction, animals, travel, beach, user}) async {         
     String id = Uuid().v1();
     final quizReference = connection.child('quiz status').child(user);
     quizReference.set({
